@@ -8,6 +8,7 @@ exports.searchAndStoreRepos = async (req, res) => {
     const keywordRelatedData = await Repo.find({ keyword: { $regex: new RegExp(keyword, 'i') } });
 
     if(keywordRelatedData.length){
+      //we have done this because we are using free version of mongodb cluster
       res.status(200).json({ message: 'Data in DB.' });
     }else{
       const response = await axios.get(`https://api.github.com/search/repositories?q=${keyword}`);
